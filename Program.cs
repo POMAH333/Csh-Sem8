@@ -272,7 +272,7 @@ int[,] GetMatrixSpiral(int rows, int columns)
     int startCol = 0;
     int endCol = columns - 1;
 
-    for (; endRow != 0 || endCol != 0;)
+    for (; endRow >= startRow && endCol >= startCol;)
     {
         for (int j = startCol; j <= endCol; j++)
         {
@@ -280,28 +280,31 @@ int[,] GetMatrixSpiral(int rows, int columns)
             matrix[startRow, j] = num;
         }
 
-        for (int i = startRow + 1; i <= endRow; i++)
+        startRow++;
+
+        for (int i = startRow; i <= endRow; i++)
         {
             num++;
             matrix[i, endCol] = num;
         }
 
-        for (int j = endCol - 1; j >= startCol; j--)
+        endCol--;
+
+        for (int j = endCol; j >= startCol && endRow >= startRow; j--)
         {
             num++;
             matrix[endRow, j] = num;
         }
 
-        for (int i = endRow - 1; i >= startRow + 1; i--)
+        endRow--;
+
+        for (int i = endRow; i >= startRow && endCol >= startCol; i--)
         {
             num++;
             matrix[i, startCol] = num;
         }
 
-        startRow++;
-        endRow--;
         startCol++;
-        endCol--;
     }
 
     return matrix;
